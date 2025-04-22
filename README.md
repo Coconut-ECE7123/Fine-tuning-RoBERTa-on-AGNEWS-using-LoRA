@@ -32,14 +32,8 @@ All the experiments in this project were done on a remote Linux server platform 
 |Lion|Cosine Annealing|1e-4|5e-11|0.9|2e-2|10|1|
   
 ### Training Process Record: <br>
-
-
-
-
-
-
-
-
+![Training Loss](training_loss.png)
+![Learning Rate](learning_rate.png)
 
 
 
