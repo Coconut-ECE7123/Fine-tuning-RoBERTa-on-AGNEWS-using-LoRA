@@ -31,31 +31,8 @@ All the experiments in this project were done on a remote Linux server platform 
 |`Optimizer`|`Scheduler`|`lr0`|`lrf`|`Momentum`|`Weight Decay`|`Patience`|`Epoch`|
 |Lion|Cosine Annealing|1e-4|5e-11|0.9|2e-2|10|1|
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### Training Process Record: <br>
+![training loss](training loss.png)
 
 
 
