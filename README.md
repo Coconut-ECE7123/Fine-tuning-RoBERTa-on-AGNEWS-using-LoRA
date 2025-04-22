@@ -10,27 +10,26 @@
 `pred.ipynb`: model inference on Kaggle testset using checkpoint model weights <br>
 `test_unlabelled.pkl`: Kaggle test set <br>
 
-This project is built based on an open-source github project https://github.com/kuangliu/pytorch-cifar . <br> 
-The final result is a modified ResNet with `4.9M` parameters that realize `95.49%` accuracy on CIFAR-10 and `85.10%` accuracy on Kaggle test set. <br>
-[Model Structure](https://github.com/Coconut-ECE7123/ECE7123-DL-Project1/blob/main/model%20structure.png)
+This project is built based on the `Starter_Notebook.ipynb` provided by NYU ECE-GY7123. <br> 
+The final result is obatined by model assembly that uses 4 best performed models on Kaggle dataset, the highest among which owns `0.889M` parameters. The final test accuracy is `84.3%` that is over the benchmark metric. <br>
+
 ### Main modifications done upon the original codes: <br>
 #### Model 
-1. replaced Residual Block by Bottleneck Block
-2. halved the channel width for tensors in 4 layers
-3. block numbers for 4 layers: [2, 4, 6, 2]
-4. introduced SE attention into Bottleneck Block
+Ablation experiments were performed with various LoRA configurations by dividing the 12-layer RoBERTa model into 2-4 sections. We implemented smaller r values and LoRA dropout in the shallow layers while gradually increasing both rank r and LoRA
+dropout in the middle and deeper layers near the model output. In total, we experimented with 9 different configurations and fine-tuned the LoRA-dropout regularization parameter.
 #### Training 
-1. data augmentation
-2. MLFlow for monitoring
-3. early stopping (patience=30)
-4. label smoothing(factor=0.01)
+1. Lion Optimizer (lr=1e-4 weight_decay = 2e-2)
+2. Cosine annealing scheduler with warmup period (6% steps)
+3. Batch size = 16
+4. early stopping (patience=10)
+5. max steps = 2500
 ## Exp. Env.
 All the experiments in this project were done on a remote Linux server platform `AutoDL`.  <br>
-|`GPU`|`Cuda`|`Python`|`PyTorch`|`Pretrained`|`Label Smoothing`|`Batch Size`|`Worker`|
+|`GPU`|`Cuda`|`Python`|`PyTorch`|`Pretrained`|`LoRA`|`Batch Size`|`Worker`|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|RTX3090 | 12.1 | 3.12.3 | 2.3.0|False|0.01|128|16|
+|A100 | 12.1 | 3.12.3 | 2.3.0|True|True|16|64|
 |`Optimizer`|`Scheduler`|`lr0`|`lrf`|`Momentum`|`Weight Decay`|`Patience`|`Epoch`|
-|SGD|Cosine Annealing|5e-2|5e-4|0.9|5e-4|30|200|
+|Lion|Cosine Annealing|1e-4|5e-11|0.9|2e-2|10|1|
   
 
 
